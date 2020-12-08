@@ -6,26 +6,38 @@ This is a simple script to parse a pacp file into the flow view of ip-pair and 5
 
 * Python 2.7.12
 * Scapy 2.4.4
+* matplotlib
+* numpy
 
-``` basy
+``` bash
 pip install scapy
 sudo apt install texlive-latex-base   ## For packet pdfdump function.
 ```
 
-
-
-## Usage
+## Introduce
 
 ```bash
-chmod +x main.py
-./main.py   ##This will read ./pkts/head1000-paded.pcap
-```
-
+<ROOT>
+├── analyze_pcap.py                # analyze the pcap file, save as json and readable txt file.
+├── cm_sketch.py                   # count-min sketch reader.
+├── common.py                      # params
+├── common.pyc
+├── es_sketch.py                   # elastic sketch reader.
+├── input
+├── output
+├── pcap_split_v2.py               # split pcap file by time or count.
+├── pkts -> /home/hzheng/pkts/
+└── README.md                   
+## Usage
 
 
 ## Use Case
 
 ```txt
+
+chmod +x  analyze_pcap.py
+./analyze_pcap.py
+
 ============================================================================================
 Overview:
 ============================================================================================
