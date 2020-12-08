@@ -28,13 +28,12 @@ sudo apt install texlive-latex-base   ## For packet pdfdump function.
 ├── pcap_split_v2.py               # split pcap file by time or count.
 ├── pkts -> /home/hzheng/pkts/
 └── README.md                   
-## Usage
-
+```
 
 ## Use Case
 
-```txt
 
+```txt
 chmod +x  analyze_pcap.py
 ./analyze_pcap.py
 
@@ -63,6 +62,5 @@ IP Pair flow count table:
 [133.164.161.130:52364 => 103.137.195.60 :443   | 6 ] Packet Count= 38  Flow Size (Bytes)= 56024     
 ........   
 ============================================================================================
-
 ```
 
