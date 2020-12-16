@@ -13,9 +13,14 @@ import json
 #in_pcap_file= "./pkts/packets10M-paded.pcap"
 #in_pcap_file= "./pkts/packets10M-paded-mtu-trunc.pcap"
 #in_pcap_file= "./pkts/mini-10-ok.pcap"
+#### INPUT HEAD-1000 TEST
+#IN_PCAP_FILE= "./pkts/head1000-paded.pcap"
+#OUT_PCAP_ANA_TXT= "./output/head1000_statistic.txt"
+#OUT_PCAP_ANA_JSON = "./output/head1000_statistic.json"
+####
 IN_PCAP_FILE= "./pkts/fivesec0-paded-trunc.pcap"
-OUT_PCAP_ANA_TXT= "./output/fiveSec0_statistic.txt"
-OUT_PCAP_ANA_JSON = "./output/fiveSec0_statistic.json"
+OUT_PCAP_ANA_TXT= "./output/fiveSec0_statistic2.txt"
+OUT_PCAP_ANA_JSON = "./output/fiveSec0_statistic2.json"
 
 # For sketch analyze
 #in_pacp_statistic_json = out_pacp_statistic_json
@@ -24,11 +29,11 @@ IN_PCAP_ANA_JSON = "./output/fiveSec0_statistic.json" #"./input/packets10M-paded
 # For cm_sketch
 CM_SKETCH_COL = 32768
 CM_SKETCH_IN_NPY = "./input/cm_sketch_fiveSec0_d5w32768.npy" #"./input/sketch_result.npy"
-CM_SKETCH_HASH_SD1= 0x18790314;
-CM_SKETCH_HASH_SD2= 0x17770430;
-CM_SKETCH_HASH_SD3= 0xabf278ac;
-CM_SKETCH_HASH_SD4= 0x83291abc;
-CM_SKETCH_HASH_SD5= 0x7382e401;
+CM_SKETCH_HASH_SD1= 0x18790314
+CM_SKETCH_HASH_SD2= 0x17770430
+CM_SKETCH_HASH_SD3= 0xabf278ac
+CM_SKETCH_HASH_SD4= 0x83291abc
+CM_SKETCH_HASH_SD5= 0x7382e401
 CM_OUT_SKETCH_ANA_TXT = "./output/cm_sketch_5sec0_d5w32768.txt"
 CM_OUT_SKETCH_ANA_PNG = "./output/cm_sketch_5sec0_d5w32768.png"
 
@@ -36,8 +41,8 @@ CM_OUT_SKETCH_ANA_PNG = "./output/cm_sketch_5sec0_d5w32768.png"
 ES_SKETCH_HEAVY_COL = 32768
 ES_SKETCH_LIGHT_COL = 131072
 ES_SKETCH_IN_NPY = "./input/es_sketch_fiveSec0_d5w32768.npy"
-ES_SKETCH_HEAVY_HASH_SD1= 0x18790314;
-ES_SKETCH_LIGHT_HASH_SD1= 0x17770430;
+ES_SKETCH_HEAVY_HASH_SD1= 0x18790314
+ES_SKETCH_LIGHT_HASH_SD1= 0x17770430
 ES_OUT_SKETCH_ANA_TXT = "./output/es_sketch_5sec0_d5w32768.txt"
 ES_OUT_SKETCH_ANA_PNG = "./output/es_sketch_5sec0_d5w32768.png"
 

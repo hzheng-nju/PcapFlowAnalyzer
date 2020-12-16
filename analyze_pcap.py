@@ -31,9 +31,29 @@ def analyzePcap(pcap, pcap_statistics):
 				sport = packet['UDP'].sport
 				dport = packet['UDP'].dport
 				pcap_statistics["udp_num"] += 1
+                        ip_dst_key  = (ipv4_dst)
+                        ip_src_key  = (ipv4_src)
 			ip_pair_key = (ipv4_dst, ipv4_src)
 			five_tuple_key = (ipv4_dst, ipv4_src, dport, sport, protocol)
 			pkt_len = len(packet) + 4   ## len(pkt) can get full packet length without crc(4 Bytes)
+			if ip_dst_key not in pcap_statistics['flow_set_ip_dst']:
+				# If not exist, add to set
+				pcap_statistics['flow_set_ip_dst'][ip_dst_key] = 1
+				pcap_statistics['flow_num_ip_dst'] += 1
+				pcap_statistics['dst_ip_pkt_cnt_table'][ip_dst_key] = 0
+				pcap_statistics['dst_ip_flow_size_table'][ip_dst_key] = 0
+			pcap_statistics['dst_ip_pkt_cnt_table'][ip_dst_key] += 1
+			pcap_statistics['dst_ip_flow_size_table'][ip_dst_key] += pkt_len
+
+			if ip_src_key not in pcap_statistics['flow_set_ip_src']:
+				# If not exist, add to set
+				pcap_statistics['flow_set_ip_src'][ip_src_key] = 1
+				pcap_statistics['flow_num_ip_src'] += 1
+				pcap_statistics['src_ip_pkt_cnt_table'][ip_src_key] = 0
+				pcap_statistics['src_ip_flow_size_table'][ip_src_key] = 0
+			pcap_statistics['src_ip_pkt_cnt_table'][ip_src_key] += 1
+			pcap_statistics['src_ip_flow_size_table'][ip_src_key] += pkt_len
+
 			if ip_pair_key not in pcap_statistics['flow_set_ip_pair']:
 				# If not exist, add to set
 				pcap_statistics['flow_set_ip_pair'][ip_pair_key] = 1
@@ -62,6 +82,8 @@ def resultWriter(pcap_statistics, outfile):
 	of.write("ipv6_num : %d \n" % pcap_statistics["ipv6_num"])
 	of.write("tcp_num(ipv4) : %d \n" % pcap_statistics["tcp_num"])
 	of.write("udp_num(ipv4) : %d \n" % pcap_statistics["udp_num"])
+	of.write("flow_num_ip_src(ipv4)  : %d \n" % pcap_statistics["flow_num_ip_src"])
+ 	of.write("flow_num_ip_dst(ipv4)  : %d \n" % pcap_statistics["flow_num_ip_dst"])
 	of.write("flow_num_ip_pair(ipv4)  : %d \n" % pcap_statistics["flow_num_ip_pair"])
  	of.write("flow_num_5_tuple(ipv4)  : %d \n" % pcap_statistics["flow_num_5_tuple"])
 	of.write("==============================================================================================================\n")
@@ -91,10 +113,18 @@ pcap_statistics = {
 	# Only for ipv4
 	'tcp_num' : 0,
 	'udp_num' : 0,
+	'flow_set_ip_src' : {},     # (ipv4_dst, ipv4_src)
+	'flow_num_ip_src' : 0,
+	'flow_set_ip_dst' : {},     # (ipv4_dst, ipv4_src)
+	'flow_num_ip_dst' : 0,
 	'flow_set_ip_pair' : {},     # (ipv4_dst, ipv4_src)
 	'flow_num_ip_pair' : 0,
 	'flow_set_5_tuple' : {},     # (ipv4_dst, ipv4_src, dport, sport, protocol)
 	'flow_num_5_tuple' : 0,
+	'src_ip_pkt_cnt_table' : dict(),
+	'src_ip_flow_size_table' : dict(),  
+	'dst_ip_pkt_cnt_table' : dict(), 
+	'dst_ip_flow_size_table' : dict(),
         'ip_pair_pkt_cnt_table' : dict(),    # <ip_pair : pkt_count>
 	'5_tuple_pkt_cnt_table' : dict(),    # <5-tuple : pkt_count>
 	'ip_pair_flow_size_table' : dict(),  # <ip_pair : flow_size>
@@ -132,6 +162,8 @@ if __name__ == "__main__":
     print("ipv6_num : %d" % pcap_statistics["ipv6_num"])
     print("tcp_num(ipv4) : %d" % pcap_statistics["tcp_num"])
     print("udp_num(ipv4) : %d" % pcap_statistics["udp_num"])
+    print("flow_num_ip_src(ipv4)   : %d" % pcap_statistics["flow_num_ip_src"])
+    print("flow_num_ip_dst(ipv4)   : %d" % pcap_statistics["flow_num_ip_dst"])
     print("flow_num_ip_pair(ipv4)  : %d" % pcap_statistics["flow_num_ip_pair"])
     print("flow_num_5_tuple(ipv4)  : %d" % pcap_statistics["flow_num_5_tuple"])
     print("For detail please see result.txt.")

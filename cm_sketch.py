@@ -43,10 +43,11 @@ if __name__ == "__main__":
     index = 0
     max_cnt = 0
     total_cnt = 0
-
+    average_relative_error = 0
+    temp_relative_error_sum = 0
     for ip_pair in pcap_statistics['ip_pair_pkt_cnt_table']:
-        ip_dst = ip_pair[0]
         ip_src = ip_pair[1]
+        ip_dst = ip_pair[0]
         estimate = sketch.access(ip_dst, ip_src)
         real_cnt = pcap_statistics['ip_pair_pkt_cnt_table'][ip_pair]
         total_cnt += real_cnt
@@ -56,16 +57,11 @@ if __name__ == "__main__":
         plt_y_real[index] = real_cnt
         plt_y_sketch[index] = estimate
         index += 1
-        if abs(estimate - real_cnt) <= real_cnt *  sketch_statistics['error_rate'] :
-        	sketch_statistics['pass'] += 1
-        	of.write("[PASS]  {0:<16} => {1:<16}\t real_cnt={2:<5}\t estimate = {3:<5} \n".format \
-        	              (ip_src, ip_dst, real_cnt, estimate))
-        else:
-        	sketch_statistics['error'] += 1
-        	of.write("[ERROR] {0:<16} => {1:<16}\t real_cnt={2:<5}\t estimate = {3:<5} \n".format \
-        				  (ip_src, ip_dst, real_cnt, estimate))
-    of.write("Total pass = %d \n" % sketch_statistics['pass'])
-    of.write("Total error = %d \n" % sketch_statistics['error'])
+        relative_error = (abs(estimate - real_cnt)/ real_cnt) * 100
+        temp_relative_error_sum += relative_error
+        of.write("{0:<16} => {1:<16}\t real_cnt={2:<5}\t estimate = {3:<5} \t relative_error={4:<5}\n".format \
+        				  (ip_src, ip_dst, real_cnt, estimate, relative_error))
+    of.write("Average Relative Error = %d / %d = %d \n" % (temp_relative_error_sum, index, temp_relative_error_sum / index))
     ## For plot
     points = zip(plt_y_real, plt_y_sketch)
     sorted_points = sorted(points)
