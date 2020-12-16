@@ -82,8 +82,8 @@ for packet in PcapReader(pcap_input):
     		sport = packet['UDP'].sport
     		dport = packet['UDP'].dport
     		pcap_statistics["udp_num"] += 1
-            ip_dst_key  = (ipv4_dst)
-            ip_src_key  = (ipv4_src)
+        ip_dst_key  = (ipv4_dst)
+        ip_src_key  = (ipv4_src)
     	ip_pair_key = (ipv4_dst, ipv4_src)
     	five_tuple_key = (ipv4_dst, ipv4_src, dport, sport, protocol)
     	pkt_len = len(packet) + 4   ## len(pkt) can get full packet length without crc(4 Bytes)
