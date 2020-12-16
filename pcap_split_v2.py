@@ -8,8 +8,8 @@ import argparse
 import time
 
 parser = argparse.ArgumentParser(description='Process pcap file and split into subfile. NOTE: Only output first sub pcap.')
-parser.add_argument('-t', '--type', action='store', dest="split_type", default=1, 
-                    type=int, choices=(0, 1), required=False, 
+parser.add_argument('-t', '--type', action='store', dest="split_type", default=1,
+                    type=int, choices=(0, 1), required=False,
                     help="What split type do you want: [0: time, 1: pkt_num]")
 parser.add_argument('-i', '--input', action='store', dest="pcap_in", default=None,
                     required=True, help="Input Pcap File.")
@@ -29,7 +29,7 @@ read_count = args.max_count
 pause_count = read_count
 
 folder = os.path.exists(dir_output)
-if not folder:                   
+if not folder:
     os.makedirs(dir_output)
 
 # read pcap
