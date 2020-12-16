@@ -1,6 +1,10 @@
-# A simple pcap file parser
+# Pcap Tools
 
-This is a simple script to parse a pacp file into the flow view of ip-pair and 5-tuple.
+This respository can:
+
+* Analyze a pcap in flow view (e.g., 5-tuple, ip-pair, src-ip, dst-ip) with flow key and packet length (and count).
+* Split a pcap file into many small pcap file (by packet count or time).
+* Simplify A pcap file into dat format, which only include five tuple.
 
 ## Requirements
 
