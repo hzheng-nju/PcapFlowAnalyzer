@@ -157,7 +157,7 @@ for ip_pair in ip_pair_sorted_pkt_cnt:
 	pkt_cnt = pcap_statistics["ip_pair_pkt_cnt_table"][ip_pair[0]]  ## Ip_pair is a list.
 	flow_size = pcap_statistics["ip_pair_flow_size_table"][ip_pair[0]]
 	# of.write("- %s => %s  : pkt_count=%d, flow_size=%d  (Bytes). \n" % (ip_pair[0][0], ip_pair[0][1], pkt_cnt, flow_size))
-	of.write( tplt1.format(ip_pair[0][0], ip_pair[0][1], pkt_cnt, flow_size))
+	of.write( tplt1.format(ip_pair[0][1], ip_pair[0][0], pkt_cnt, flow_size))
 of.write("==============================================================================================================\n")
 of.write("5-tuple flow count table:\n")
 five_tuple_sorted_pkt_cnt = sorted(pcap_statistics["5_tuple_pkt_cnt_table"].items(), key=lambda item:item[1],reverse=True)
